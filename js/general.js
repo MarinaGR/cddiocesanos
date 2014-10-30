@@ -1,7 +1,7 @@
 //Global Variables
 
-//var extern_siteurl="http://www.cdcolegiosdiocesanos.com";
-var extern_siteurl="http://127.0.0.1/cddiocesanos";
+var extern_siteurl="http://www.cdcolegiosdiocesanos.com";
+//var extern_siteurl="http://127.0.0.1/cddiocesanos";
 
 var destination="";
 	
