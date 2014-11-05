@@ -70,6 +70,29 @@ function onOffline()
     alert('Sin conexión: ' + states[networkState]);
 }
 
+/*************************************************************/
+function checkInternet(){
+
+	var isOffline = 'onLine' in navigator && !navigator.onLine;
+
+	if ( isOffline ) {
+		//local db
+	}
+	else {
+		// internet data
+	}
+
+	////////////////////////////////////////////////////////
+	
+    var networkState = navigator.connection.type;
+
+    if(networkState == Connection.NONE){
+        onConnexionError();
+        return false;
+    }
+    else{return true;}
+}
+/*************************************************************/
 
 function ajax_operation(values,operation)
 {
