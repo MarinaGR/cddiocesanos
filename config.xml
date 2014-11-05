@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns = "http://www.w3.org/ns/widgets"
-
-    xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.ovnyline.cddiocesanos"
-    version     = "1.0.0"
-    versionCode = "1" >
+		xmlns:gap   = "http://phonegap.com/ns/1.0"
+		id          = "com.ovnyline.cddiocesanos"
+		version     = "1.0.0" >
 
     <name>CD Colegios Diocesanos</name>
 
     <description>
-    Aplicación con toda la información sobre el Club Deportivo Colegios Diocesanos, de Ávila.
+		Aplicación con toda la información sobre el Club Deportivo Colegios Diocesanos, de Ávila.
     </description>
 
     <author href="http://www.ovnyline.com" email="info@ovnyline.com">
-    Grupo Ovnyline Comunicación
+		Grupo Ovnyline Comunicación
     </author>
 
      <!--
@@ -51,12 +49,12 @@
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
-    <!-- <gap:plugin name="org.apache.cordova.geolocation" /> -->
-   <!-- <gap:plugin name="org.apache.cordova.globalization" />
+    <gap:plugin name="org.apache.cordova.geolocation" /> 
+	<gap:plugin name="org.apache.cordova.globalization" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="org.apache.cordova.media" />-->
     <gap:plugin name="org.apache.cordova.network-information" />
-    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <!--<gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" /> -->
 
     <!-- Define app icon for each platform. -->
