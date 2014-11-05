@@ -1,9 +1,6 @@
 //Global Variables
 
-var extern_siteurl="http://www.cdcolegiosdiocesanos.com";
-//var extern_siteurl="http://127.0.0.1/cddiocesanos";
-
-var destination="";
+var extern_siteurl="http://www.cdcolegiosdiocesanos.com"; //"http://127.0.0.1/cddiocesanos";
 	
 //Get the screen and viewport size
 var viewport_width=$(window).outerWidth();
@@ -15,14 +12,12 @@ var screen_height=screen.height;
 function onBodyLoad()
 {	
     document.addEventListener("deviceready", onDeviceReady, false);    
-    
-	document.addEventListener("offline", onOffline, false);
-	document.addEventListener("online", onOnline, false); 	 
 }
-
-
 function onDeviceReady()
 {
+	document.addEventListener("offline", onOffline, false);
+	document.addEventListener("online", onOnline, false); 	 
+	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 }    
@@ -33,18 +28,6 @@ function onBackKeyDown()
 function onMenuKeyDown()
 {
 	window.location.href='index.html';
-}
-
-/* Lenght Object */
-Object.size = function(obj) 
-{
-	var size = 0, key;
-	for(key in obj) 
-	{
-	    if(obj.hasOwnProperty(key)) 
-	    	size++;
-	}
-	return size;
 }
 function onOnline()
 {
@@ -86,6 +69,7 @@ function onOffline()
 
     alert('Sin conexión: ' + states[networkState]);
 }
+
 
 function ajax_operation(values,operation)
 {
