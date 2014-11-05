@@ -11,12 +11,15 @@ var screen_height=screen.height;
 
 function onBodyLoad()
 {	
-    document.addEventListener("deviceready", onDeviceReady, false);    
+    document.addEventListener("deviceready", onDeviceReady, false); 
+
+	checkInternet();
+			
 }
 function onDeviceReady()
 {
 	document.addEventListener("offline", onOffline, false);
-	document.addEventListener("online", onOnline, false); 	 
+	document.addEventListener("online", onOnline, false); 	
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -31,7 +34,11 @@ function onMenuKeyDown()
 }
 function onOnline()
 {
-	alert("online"+getVersion());
+	alert("online");
+	
+	setTimeout(function(){
+		$("#contenido").attr("src",extern_siteurl);
+	},1000);
 	
 	var networkState = navigator.connection.type;
 
@@ -50,10 +57,13 @@ function onOnline()
     /* UPDATES */ 
  	window.webkitRequestFileSystem(PERSISTENT, 0, onFileSystemSuccess, null);    
 }
-
 function onOffline()
 {
 	alert("offline");
+	
+	setTimeout(function(){
+		$("#contenido").attr("src","offline.html");
+	},1000);
 	
 	var networkState = navigator.connection.type;
 	
@@ -77,13 +87,23 @@ function checkInternet(){
 
 	if ( isOffline ) {
 		//local db
+		alert("web offline");
+	
+		setTimeout(function(){
+			$("#contenido").attr("src","offline.html");
+		},1000);
 	}
 	else {
 		// internet data
+		alert("web online");
+	
+		setTimeout(function(){
+			$("#contenido").attr("src",extern_siteurl);
+		},1000);
 	}
 
 	////////////////////////////////////////////////////////
-	
+	/*
     var networkState = navigator.connection.type;
 
     if(networkState == Connection.NONE){
@@ -91,6 +111,32 @@ function checkInternet(){
         return false;
     }
     else{return true;}
+	
+	////////////////////////////////////////////////////////
+	
+	$.ajax({
+	  type: 'GET',
+	  url: "http://www.google.es",
+	  success: app_online,
+	  error: app_offline,
+	  async:false
+	});				
+	function app_online(data){
+		
+		setTimeout(function(){
+			$("#contenido").attr("src",extern_siteurl);
+		},1000);
+		
+	}
+	function app_offline(jqXHR, textStatus, errorThrown)
+	{
+		alert("Aplicación offline"+jqXHR+textStatus+errorThrown);	
+
+		setTimeout(function(){
+			$("#contenido").attr("src","offline.html");
+		},1000);
+	}	
+	*/
 }
 /*************************************************************/
 
