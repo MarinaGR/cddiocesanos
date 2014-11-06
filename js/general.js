@@ -8,6 +8,9 @@ var viewport_height=$(window).outerHeight();
 var screen_width=screen.width;
 var screen_height=screen.height; 
 
+$(document).ready(function() {
+	$("#contenido").height(parseInt($(window).height())-5+"px");
+});
 
 function onBodyLoad()
 {	
@@ -34,13 +37,11 @@ function onMenuKeyDown()
 }
 function onOnline()
 {
-	alert("online");
-	
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl);
 	},1000);
 	
-	var networkState = navigator.connection.type;
+	/*var networkState = navigator.connection.type;
 
     var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -52,20 +53,17 @@ function onOnline()
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Conexión: ' + states[networkState]);
-    
-    /* UPDATES */ 
- 	window.webkitRequestFileSystem(PERSISTENT, 0, onFileSystemSuccess, null);    
+    alert('Conexión: ' + states[networkState]);*/
+
 }
 function onOffline()
 {
-	alert("offline");
-	
+
 	setTimeout(function(){
 		$("#contenido").attr("src","offline.html");
 	},1000);
 	
-	var networkState = navigator.connection.type;
+	/*var networkState = navigator.connection.type;
 	
     var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
@@ -77,69 +75,26 @@ function onOffline()
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Sin conexión: ' + states[networkState]);
+    alert('Sin conexión: ' + states[networkState]);*/
 }
 
-/*************************************************************/
 function checkInternet(){
 
 	var isOffline = 'onLine' in navigator && !navigator.onLine;
 
 	if ( isOffline ) {
-		//local db
-		alert("web offline");
-	
 		setTimeout(function(){
 			$("#contenido").attr("src","offline.html");
 		},1000);
 	}
 	else {
-		// internet data
-		alert("web online");
-	
 		setTimeout(function(){
 			$("#contenido").attr("src",extern_siteurl);
 		},1000);
 	}
-
-	////////////////////////////////////////////////////////
-	/*
-    var networkState = navigator.connection.type;
-
-    if(networkState == Connection.NONE){
-        onConnexionError();
-        return false;
-    }
-    else{return true;}
-	
-	////////////////////////////////////////////////////////
-	
-	$.ajax({
-	  type: 'GET',
-	  url: "http://www.google.es",
-	  success: app_online,
-	  error: app_offline,
-	  async:false
-	});				
-	function app_online(data){
-		
-		setTimeout(function(){
-			$("#contenido").attr("src",extern_siteurl);
-		},1000);
-		
-	}
-	function app_offline(jqXHR, textStatus, errorThrown)
-	{
-		alert("Aplicación offline"+jqXHR+textStatus+errorThrown);	
-
-		setTimeout(function(){
-			$("#contenido").attr("src","offline.html");
-		},1000);
-	}	
-	*/
 }
-/*************************************************************/
 
+/*************************************************************/
 function ajax_operation(values,operation)
 {
 	var retorno=false;		
@@ -249,3 +204,4 @@ function get_var_url(variable){
 		return false;
 	
 }
+/*************************************************************/
