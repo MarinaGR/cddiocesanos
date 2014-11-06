@@ -7,8 +7,12 @@ body
 	width:100%;
 	height:100%;
 	background-color: #FFFFFF;
-	font-size: 16px;
+	font-size: 15px;
 	font-family: "2", Arial, sans-serif;
+}
+
+h1, h2, h3 {
+	line-height: 1.3em;
 }
 
 .ov_body {
@@ -19,7 +23,7 @@ body
 	color: #333; 
 	padding: 10px 0; 
 	text-align:center;
-	font-size: 0.8em;
+	font-size: 0.7em;
 }
 .ov_header {
 	width: 100%;
@@ -56,6 +60,9 @@ body
 	width: 100%;
 	margin: 10px 0;
 	text-align: center;
+}
+.ov_logo img {
+	max-width: 96%;
 }
 .ov_contenedor {
 	width: 96%;
