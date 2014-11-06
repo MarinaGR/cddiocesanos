@@ -18,6 +18,7 @@ h1, h2, h3 {
 .ov_body {
 	background-color: #EEEEEE;
 }
+
 .ov_message {
 	background-color:#F0DA00; 
 	color: #333; 
@@ -25,6 +26,7 @@ h1, h2, h3 {
 	text-align:center;
 	font-size: 0.7em;
 }
+
 .ov_header {
 	width: 100%;
 	position: relative;
@@ -54,6 +56,7 @@ h1, h2, h3 {
 .ov_header li a:hover {
 	background-color: #005577;
 }
+
 .ov_logo {
 	float: left;
 	padding-top: 25px;
@@ -64,6 +67,7 @@ h1, h2, h3 {
 .ov_logo img {
 	max-width: 96%;
 }
+
 .ov_contenedor {
 	width: 96%;
 	min-width: 240px;
@@ -73,12 +77,14 @@ h1, h2, h3 {
 	font-size: 0.95em;
 	line-height: 1.5em;
 }
+
 .ov_title_01 {
 	font-weight: bold;
 	padding: 5px;
 	margin-bottom: 15px;
 	border-bottom: 5px solid #005577;
 }
+
 .ov_lista {
 	counter-reset: li;
 	list-style: none;
@@ -102,6 +108,7 @@ ol.ov_lista > li:before {
 	margin-right: 5px;
 	display: inline-block;
 }
+
 .clear {
 	clear: both;
 }
