@@ -1,6 +1,7 @@
 //Global Variables
 
-var extern_siteurl="http://www.cdcolegiosdiocesanos.com"; //"http://127.0.0.1/cddiocesanos";
+var extern_siteurl="http://www.cdcolegiosdiocesanos.com"; 
+//var extern_siteurl="http://127.0.0.1/cddiocesanos";
 	
 //Get the screen and viewport size
 var viewport_width=$(window).outerWidth();
@@ -15,9 +16,8 @@ $(document).ready(function() {
 function onBodyLoad()
 {	
     document.addEventListener("deviceready", onDeviceReady, false); 
-
-	checkInternet();
-			
+	
+	checkInternet();			
 }
 function onDeviceReady()
 {
@@ -26,20 +26,49 @@ function onDeviceReady()
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
+	
+	/*window.plugin.notification.local.add({
+		id:         String,  // A unique id of the notifiction
+		date:       Date,    // This expects a date object
+		message:    String,  // The message that is displayed
+		title:      String,  // The title of the message
+		repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+		badge:      Number,  // Displays number badge to notification
+		sound:      String,  // A sound to be played
+		json:       String,  // Data to be passed through the notification
+		autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+		ongoing:    Boolean, // Prevent clearing of notification (Android only)
+	});*/
+	
+	var now = new Date().getTime(),
+    _30_seconds_from_now = new Date(now + 60*1000);
+
+	window.plugin.notification.local.add({
+		id:      1,
+		date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+		title:   'Recuerda',
+		message: 'No olvides informarte en nuestra web',
+		repeat:  2,  //Se repite cada dos minutos
+	});
 }    
 function onBackKeyDown()
 {
+	if($("#contenido").attr("src")==extern_siteurl  || (window.location.href).indexOf("offline.html"))
+	{		
+		navigator.app.exitApp();
+		return false;
+	}
 	window.history.back();
 }
 function onMenuKeyDown()
 {
-	window.location.href='index.html';
+	//window.location.href='index.html';
 }
 function onOnline()
 {
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl);
-	},1000);
+	},500);
 	
 	/*var networkState = navigator.connection.type;
 
@@ -58,24 +87,10 @@ function onOnline()
 }
 function onOffline()
 {
-
 	setTimeout(function(){
 		$("#contenido").attr("src","offline.html");
-	},1000);
-	
-	/*var networkState = navigator.connection.type;
-	
-    var states = {};
-    states[Connection.UNKNOWN]  = 'Unknown connection';
-    states[Connection.ETHERNET] = 'Ethernet connection';
-    states[Connection.WIFI]     = 'WiFi connection';
-    states[Connection.CELL_2G]  = 'Cell 2G connection';
-    states[Connection.CELL_3G]  = 'Cell 3G connection';
-    states[Connection.CELL_4G]  = 'Cell 4G connection';
-    states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
+	},500);
 
-    alert('Sin conexión: ' + states[networkState]);*/
 }
 
 function checkInternet(){
@@ -84,14 +99,15 @@ function checkInternet(){
 
 	if ( isOffline ) {
 		setTimeout(function(){
-			$("#contenido").attr("src","offline.html");
-		},1000);
+			$("#contenido").attr("src","offline.html");				
+		},500);
 	}
 	else {
 		setTimeout(function(){
-			$("#contenido").attr("src",extern_siteurl);
-		},1000);
+			$("#contenido").attr("src",extern_siteurl);				
+		},500);
 	}
+
 }
 
 /*************************************************************/
