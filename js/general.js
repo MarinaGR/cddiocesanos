@@ -2,7 +2,7 @@
 
 var extern_siteurl="http://www.cdcolegiosdiocesanos.com"; 
 //var extern_siteurl="http://127.0.0.1/cddiocesanos";
-	
+
 //Get the screen and viewport size
 var viewport_width=$(window).outerWidth();
 var viewport_height=$(window).outerHeight();
@@ -40,24 +40,37 @@ function onDeviceReady()
 		ongoing:    Boolean, // Prevent clearing of notification (Android only)
 	});*/
 	
-	var values="table=ov_news&";
+	var values="ov_table=ov_news";
 	var result=ajax_operation(values,"ov_get_notifications");
 	
 	var now = new Date().getTime(),
-    _30_seconds_from_now = new Date(now + 60*1000);
-
-	window.plugin.notification.local.add({
-		id:      1,
-		date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
-		title:   'Recuerda',
-		message: 'No olvides informarte en nuestra web, hay '+result+' noticias en este momento.',
-		repeat:  2,  //Se repite cada dos minutos
-	});
+	_30_seconds_from_now = new Date(now + 60*1000);
+	
+	if(result)
+	{
+		window.plugin.notification.local.add({
+			id:      1,
+			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			title:   'Recuerda',
+			message: 'En nuestra web hay '+result+' noticias en este momento.',
+			repeat:  2,  //Se repite cada dos minutos
+		});
+	}
+	else
+	{
+		window.plugin.notification.local.add({
+			id:      1,
+			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			title:   'Recuerda',
+			message: 'No olvides informarte en nuestra web.',
+			repeat:  2,  //Se repite cada dos minutos
+		});
+	}
 
 }    
 function onBackKeyDown()
 {
-	if($("#contenido").attr("src")==extern_siteurl  || $("#contenido").attr("src")=="offline.html" || (window.location.href).indexOf("offline.html")>-1)
+	if($("#contenido").attr("src")=="offline.html") //$("#contenido").attr("src")==extern_siteurl 
 	{		
 		navigator.app.exitApp();
 		return false;
@@ -110,7 +123,7 @@ function checkInternet(){
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{
 			setTimeout(function(){
-				$("#contenido").attr("src",extern_siteurl);				
+				$("#contenido").attr("src",extern_siteurl);	
 			},500);
 		}		
 	}
