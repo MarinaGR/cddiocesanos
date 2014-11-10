@@ -40,6 +40,9 @@ function onDeviceReady()
 		ongoing:    Boolean, // Prevent clearing of notification (Android only)
 	});*/
 	
+	var values="table=ov_news&";
+	var result=ajax_operation(values,"ov_get_notifications");
+	
 	var now = new Date().getTime(),
     _30_seconds_from_now = new Date(now + 60*1000);
 
@@ -47,13 +50,14 @@ function onDeviceReady()
 		id:      1,
 		date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
 		title:   'Recuerda',
-		message: 'No olvides informarte en nuestra web',
+		message: 'No olvides informarte en nuestra web, hay '+result+' noticias en este momento.',
 		repeat:  2,  //Se repite cada dos minutos
 	});
+
 }    
 function onBackKeyDown()
 {
-	if($("#contenido").attr("src")==extern_siteurl  || (window.location.href).indexOf("offline.html"))
+	if($("#contenido").attr("src")==extern_siteurl  || $("#contenido").attr("src")=="offline.html" || (window.location.href).indexOf("offline.html")>-1)
 	{		
 		navigator.app.exitApp();
 		return false;
@@ -103,9 +107,12 @@ function checkInternet(){
 		},500);
 	}
 	else {
-		setTimeout(function(){
-			$("#contenido").attr("src",extern_siteurl);				
-		},500);
+		if(typeof $("#contenido").attr("src") == "undefined")
+		{
+			setTimeout(function(){
+				$("#contenido").attr("src",extern_siteurl);				
+			},500);
+		}		
 	}
 
 }
@@ -116,7 +123,7 @@ function ajax_operation(values,operation)
 	var retorno=false;		
 	$.ajax({
 	  type: 'POST',
-	  url: extern_siteurl+"/server/functions/ajax_operations.php",
+	  url: extern_siteurl+"/kantanna/functions/ajax_operations.php",
 	  data: { v: values, op: operation },
 	  success: h_proccess,
 	  error:h_error,
@@ -135,7 +142,7 @@ function ajax_operation(values,operation)
 		}
 		else
 		{
-			alert(data.error+" - "+data.error_message); // uncomment to trace errors
+			//alert(data.error+" - "+data.error_message); // uncomment to trace errors
 			retorno=false;
 		}				
 	}
@@ -151,7 +158,7 @@ function ajax_operation_cross(values,operation)
 	var retorno=false;		
 	$.ajax({
 	  type: 'POST',
-	  url: extern_siteurl+"/server/functions/ajax_operations.php",
+	  url: extern_siteurl+"/kantanna/functions/ajax_operations.php",
 	  data: { v: values, op: operation },
 	  beforeSend: function( xhr ) {
 	    xhr.overrideMimeType("text/javascript");
@@ -184,12 +191,6 @@ function ajax_operation_cross(values,operation)
 				alert(data.warning);
 			}
 			retorno=data.result;
-			
-			if(operation=="login_user")
-			{
-				setUserId(retorno); 
-				window.location.href="./micuenta.html?id="+retorno;
-			}
 		}
 		else
 		{
