@@ -1,7 +1,7 @@
 //Global Variables
 
-var extern_siteurl="http://www.cdcolegiosdiocesanos.com"; 
-//var extern_siteurl="http://127.0.0.1/cddiocesanos";
+var extern_siteurl="http://cdcolegiosdiocesanos.com/kantanna/pages/index.php?app=mobile"; 
+var extern_siteurl_op="http://cdcolegiosdiocesanos.com/kantanna/functions/php_ajax_operations.php";
 
 //Get the screen and viewport size
 var viewport_width=$(window).outerWidth();
@@ -10,7 +10,7 @@ var screen_width=screen.width;
 var screen_height=screen.height; 
 
 $(document).ready(function() {
-	$("#contenido").height(parseInt($(window).height())-5+"px");
+	$("#contenido").height(parseInt($(window).height())-4+"px");
 });
 
 function onBodyLoad()
@@ -18,6 +18,20 @@ function onBodyLoad()
     document.addEventListener("deviceready", onDeviceReady, false); 
 	
 	checkInternet();			
+	
+	
+	var now = new Date().getTime(),
+	_30_seconds_from_now = new Date(now + 30*1000);
+	
+	var values="table=ov_news&date="+now;
+	var result=ajax_operation_cross(values,"ov_get_notifications");
+	
+	alert(result);
+	
+	var fecha=getLocalStorage("fecha");
+	if(typeof fecha == "undefined")
+		setLocalStorage("fecha",now);
+	
 }
 function onDeviceReady()
 {
@@ -40,11 +54,18 @@ function onDeviceReady()
 		ongoing:    Boolean, // Prevent clearing of notification (Android only)
 	});*/
 	
-	var values="ov_table=ov_news";
-	var result=ajax_operation(values,"ov_get_notifications");
 	
 	var now = new Date().getTime(),
-	_30_seconds_from_now = new Date(now + 60*1000);
+	_30_seconds_from_now = new Date(now + 30*1000);
+	
+	var values="table=ov_news&date="+now;
+	var result=ajax_operation(values,"ov_get_notifications");
+	
+	alert(result);
+	
+	var fecha=getLocalStorage("fecha");
+	if(typeof fecha == "undefined")
+		setLocalStorage("fecha",now);
 	
 	if(result)
 	{
@@ -52,9 +73,11 @@ function onDeviceReady()
 			id:      1,
 			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
 			title:   'Recuerda',
-			message: 'En nuestra web hay '+result+' noticias en este momento.',
+			message: 'En nuestra web hay '+result+' noticias nuevas en este momento.',
 			repeat:  2,  //Se repite cada dos minutos
 		});
+		
+		setLocalStorage("fecha",now);
 	}
 	else
 	{
@@ -136,8 +159,8 @@ function ajax_operation(values,operation)
 	var retorno=false;		
 	$.ajax({
 	  type: 'POST',
-	  url: extern_siteurl+"/kantanna/functions/ajax_operations.php",
-	  data: { v: values, op: operation },
+	  url: extern_siteurl_op,
+	  data: { v: values, o: operation },
 	  success: h_proccess,
 	  error:h_error,
 	  dataType: "json",
@@ -170,9 +193,9 @@ function ajax_operation_cross(values,operation)
 {
 	var retorno=false;		
 	$.ajax({
-	  type: 'POST',
-	  url: extern_siteurl+"/kantanna/functions/ajax_operations.php",
-	  data: { v: values, op: operation },
+	  type: 'GET',
+	  url: extern_siteurl_op,
+	  data: { v: values, o: operation },
 	  beforeSend: function( xhr ) {
 	    xhr.overrideMimeType("text/javascript");
 	  },
@@ -207,7 +230,7 @@ function ajax_operation_cross(values,operation)
 		}
 		else
 		{
-			alert(data.error+" - "+data.error_message); // uncomment to trace errors
+			//alert(data.error+" - "+data.error_message); // uncomment to trace errors
 			retorno=false;
 		}			
 	}	
@@ -235,3 +258,21 @@ function get_var_url(variable){
 	
 }
 /*************************************************************/
+function setLocalStorage(keyinput,valinput) 
+{
+	if(typeof(window.localStorage) != 'undefined') { 
+		window.localStorage.setItem(keyinput,valinput); 
+	} 
+	else { 
+		alert("localStorage no definido"); 
+	}
+}
+function getLocalStorage(keyoutput)
+{
+	if(typeof(window.localStorage) != 'undefined') { 
+		return window.localStorage.getItem(keyoutput); 
+	} 
+	else { 
+		alert("localStorage no definido"); 
+	}
+}
