@@ -1,5 +1,7 @@
 //Global Variables
 
+var now = new Date().getTime();
+
 var extern_siteurl="http://cdcolegiosdiocesanos.com/kantanna/pages/index.php?app=mobile"; 
 var extern_siteurl_op="http://cdcolegiosdiocesanos.com/kantanna/functions/php_ajax_operations.php";
 
@@ -17,20 +19,14 @@ function onBodyLoad()
 {	
     document.addEventListener("deviceready", onDeviceReady, false); 
 	
-	checkInternet();			
+	var fecha=getLocalStorage("fecha"); 
+	if(typeof fecha == "undefined"  || fecha==null)	
+	{	
+		var nueva_fecha= new Date(now);
+		setLocalStorage("fecha", nueva_fecha.toDateString());
+	}
 	
-	
-	var now = new Date().getTime(),
-	_30_seconds_from_now = new Date(now + 30*1000);
-	
-	var values="table=ov_news&date="+now;
-	var result=ajax_operation_cross(values,"ov_get_notifications");
-	
-	alert(result);
-	
-	var fecha=getLocalStorage("fecha");
-	if(typeof fecha == "undefined")
-		setLocalStorage("fecha",now);
+	check_internet();			
 	
 }
 function onDeviceReady()
@@ -40,60 +36,10 @@ function onDeviceReady()
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
-	
-	/*window.plugin.notification.local.add({
-		id:         String,  // A unique id of the notifiction
-		date:       Date,    // This expects a date object
-		message:    String,  // The message that is displayed
-		title:      String,  // The title of the message
-		repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-		badge:      Number,  // Displays number badge to notification
-		sound:      String,  // A sound to be played
-		json:       String,  // Data to be passed through the notification
-		autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
-		ongoing:    Boolean, // Prevent clearing of notification (Android only)
-	});*/
-	
-	
-	var now = new Date().getTime(),
-	_30_seconds_from_now = new Date(now + 30*1000);
-	
-	var values="table=ov_news&date="+now;
-	var result=ajax_operation(values,"ov_get_notifications");
-	
-	alert(result);
-	
-	var fecha=getLocalStorage("fecha");
-	if(typeof fecha == "undefined")
-		setLocalStorage("fecha",now);
-	
-	if(result)
-	{
-		window.plugin.notification.local.add({
-			id:      1,
-			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
-			title:   'Recuerda',
-			message: 'En nuestra web hay '+result+' noticias nuevas en este momento.',
-			repeat:  2,  //Se repite cada dos minutos
-		});
-		
-		setLocalStorage("fecha",now);
-	}
-	else
-	{
-		window.plugin.notification.local.add({
-			id:      1,
-			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
-			title:   'Recuerda',
-			message: 'No olvides informarte en nuestra web.',
-			repeat:  2,  //Se repite cada dos minutos
-		});
-	}
-
 }    
 function onBackKeyDown()
 {
-	if($("#contenido").attr("src")=="offline.html") //$("#contenido").attr("src")==extern_siteurl 
+	if($("#contenido").attr("src")=="offline.html") 
 	{		
 		navigator.app.exitApp();
 		return false;
@@ -133,24 +79,81 @@ function onOffline()
 
 }
 
-function checkInternet(){
+function check_internet(){
 
 	var isOffline = 'onLine' in navigator && !navigator.onLine;
 
-	if ( isOffline ) {
+	if(isOffline) 
+	{
 		setTimeout(function(){
 			$("#contenido").attr("src","offline.html");				
 		},500);
 	}
-	else {
+	else 
+	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{
+			/*NOTIFICACIONES*/
+			_30_seconds_from_now = new Date(now + 30*1000);
+			
+			var values="date="+now;
+			var result=ajax_operation_cross(values,"ov_get_notifications");
+	
 			setTimeout(function(){
 				$("#contenido").attr("src",extern_siteurl);	
 			},500);
 		}		
 	}
 
+}
+function show_notification(msg)
+{
+	/*window.plugin.notification.local.add({
+		id:         String,  // A unique id of the notifiction
+		date:       Date,    // This expects a date object
+		message:    String,  // The message that is displayed
+		title:      String,  // The title of the message
+		repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+		badge:      Number,  // Displays number badge to notification
+		sound:      String,  // A sound to be played
+		json:       String,  // Data to be passed through the notification
+		autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+		ongoing:    Boolean, // Prevent clearing of notification (Android only)
+	});*/
+	var mensaje='Hay actualizaciones: '; 
+	if(msg[0]["ov_news"]>0)
+	{
+		mensaje+=msg[0]["ov_news"]+' noticias ';
+	}
+	if(msg[1]["ov_documents"]>0)
+	{	
+		mensaje+=msg[1]["ov_documents"]+' documentos ';	
+	}
+	
+	if(msg[0]["ov_news"]>0 && msg[1]["ov_documents"]>0)
+	{
+		mensaje+='<br>Desde el día: '+getLocalStorage("fecha")+'.';
+		
+		window.plugin.notification.local.add({
+			id:      1,
+			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			title:   'CD Colegios Diocesanos',
+			message: mensaje
+		});
+	}
+	else
+	{
+		window.plugin.notification.local.add({
+			id:      1,
+			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			title:   'Recuerda',
+			message: 'No olvides informarte en nuestra web.',
+		});
+	}
+	
+	var nueva_fecha= new Date(now);
+	setLocalStorage("fecha", nueva_fecha.toDateString());
+	
 }
 
 /*************************************************************/
@@ -193,7 +196,7 @@ function ajax_operation_cross(values,operation)
 {
 	var retorno=false;		
 	$.ajax({
-	  type: 'GET',
+	  type: 'POST',
 	  url: extern_siteurl_op,
 	  data: { v: values, o: operation },
 	  beforeSend: function( xhr ) {
@@ -212,13 +215,12 @@ function ajax_operation_cross(values,operation)
 	  async:false
 	});		
 	function jsonpCallback(data){
-        alert("jsonp");
         console.log(data);
         retorno=data.result;
     }	
 	function h_proccess_p(data){
 
-		console.log(data);
+		//console.log(data);
 
 		if(data.error=="0")
 		{			
@@ -227,6 +229,9 @@ function ajax_operation_cross(values,operation)
 				alert(data.warning);
 			}
 			retorno=data.result;
+			
+			show_notification(retorno);
+	
 		}
 		else
 		{
