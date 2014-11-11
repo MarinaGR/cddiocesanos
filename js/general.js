@@ -122,7 +122,9 @@ function show_notification(msg)
 		ongoing:    Boolean, // Prevent clearing of notification (Android only)
 	});*/
 	
-	var mensaje='Hay actualizaciones: '; 
+	var f_last_update=new Date(parseInt(getLocalStorage("fecha")));
+	var mensaje='Hay actualizaciones desde el día: '+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
+	
 	if(msg[0]["ov_news"]>0)
 	{
 		mensaje+='\r\n'+msg[0]["ov_news"]+' noticias ';
@@ -133,9 +135,7 @@ function show_notification(msg)
 	}
 	
 	if(msg[0]["ov_news"]>0 && msg[1]["ov_documents"]>0)
-	{
-		mensaje+='\r\nDesde el día: '+new Date(getLocalStorage("fecha")).toDateString()+'.';
-		
+	{		
 		window.plugin.notification.local.add({
 			id:      1,
 			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
