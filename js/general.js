@@ -22,8 +22,9 @@ function onBodyLoad()
 	var fecha=getLocalStorage("fecha"); 
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
-		var nueva_fecha= new Date(now);
-		setLocalStorage("fecha", nueva_fecha.toDateString());
+		//var nueva_fecha= new Date(now);
+		var nueva_fecha= new Date(2014,9,9).getTime();
+		setLocalStorage("fecha", nueva_fecha);
 	}
 	
 	check_internet();			
@@ -96,7 +97,7 @@ function check_internet(){
 			/*NOTIFICACIONES*/
 			_30_seconds_from_now = new Date(now + 30*1000);
 			
-			var values="date="+now;
+			var values="date="+getLocalStorage("fecha");
 			var result=ajax_operation_cross(values,"ov_get_notifications");
 	
 			setTimeout(function(){
@@ -120,19 +121,20 @@ function show_notification(msg)
 		autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
 		ongoing:    Boolean, // Prevent clearing of notification (Android only)
 	});*/
+	
 	var mensaje='Hay actualizaciones: '; 
 	if(msg[0]["ov_news"]>0)
 	{
-		mensaje+=msg[0]["ov_news"]+' noticias ';
+		mensaje+='\r\n'+msg[0]["ov_news"]+' noticias ';
 	}
 	if(msg[1]["ov_documents"]>0)
 	{	
-		mensaje+=msg[1]["ov_documents"]+' documentos ';	
+		mensaje+='\r\n'+msg[1]["ov_documents"]+' documentos ';	
 	}
 	
 	if(msg[0]["ov_news"]>0 && msg[1]["ov_documents"]>0)
 	{
-		mensaje+='<br>Desde el día: '+getLocalStorage("fecha")+'.';
+		mensaje+='\r\nDesde el día: '+new Date(getLocalStorage("fecha")).toDateString()+'.';
 		
 		window.plugin.notification.local.add({
 			id:      1,
@@ -141,18 +143,8 @@ function show_notification(msg)
 			message: mensaje
 		});
 	}
-	else
-	{
-		window.plugin.notification.local.add({
-			id:      1,
-			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
-			title:   'Recuerda',
-			message: 'No olvides informarte en nuestra web.',
-		});
-	}
-	
-	var nueva_fecha= new Date(now);
-	setLocalStorage("fecha", nueva_fecha.toDateString());
+
+	setLocalStorage("fecha", now);
 	
 }
 
