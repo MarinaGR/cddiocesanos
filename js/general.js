@@ -95,7 +95,6 @@ function check_internet(){
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{
 			/*NOTIFICACIONES*/
-			_30_seconds_from_now = new Date(now + 30*1000);
 			
 			var values="date="+getLocalStorage("fecha");
 			var result=ajax_operation_cross(values,"ov_get_notifications");
@@ -124,6 +123,8 @@ function show_notification(msg)
 	
 	var f_last_update=new Date(parseInt(getLocalStorage("fecha")));
 	var mensaje='Hay actualizaciones desde el día: '+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
+	
+	var _30_seconds_from_now = new Date(now + 30*1000);
 	
 	if(msg[0]["ov_news"]>0)
 	{
