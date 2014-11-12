@@ -23,7 +23,7 @@ function onBodyLoad()
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
 		//var nueva_fecha= new Date(now);
-		var nueva_fecha=now; //new Date(2014,1,1).getTime();
+		var nueva_fecha=new Date(2014,1,1).getTime(); //now;
 		setLocalStorage("fecha", nueva_fecha);
 	}
 	
@@ -53,6 +53,8 @@ function onMenuKeyDown()
 }
 function onOnline()
 {
+	alert("event onOnline");
+	
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl);
 	},500);
@@ -74,6 +76,8 @@ function onOnline()
 }
 function onOffline()
 {
+	alert("event onOffline");
+	
 	setTimeout(function(){
 		$("#contenido").attr("src","offline.html");
 	},500);
@@ -86,6 +90,8 @@ function check_internet(){
 
 	if(isOffline) 
 	{
+		alert("check internet: offline");
+		
 		setTimeout(function(){
 			$("#contenido").attr("src","offline.html");				
 		},500);
@@ -94,6 +100,9 @@ function check_internet(){
 	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{
+		
+			alert("check internet: first run online");
+			
 			/*NOTIFICACIONES*/
 			
 			var values="date="+getLocalStorage("fecha");
