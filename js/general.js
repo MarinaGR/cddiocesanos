@@ -23,7 +23,7 @@ function onBodyLoad()
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
 		//var nueva_fecha= new Date(now);
-		var nueva_fecha= new Date(2014,9,9).getTime();
+		var nueva_fecha=now; //new Date(2014,1,1).getTime();
 		setLocalStorage("fecha", nueva_fecha);
 	}
 	
@@ -122,7 +122,7 @@ function show_notification(msg)
 	});*/
 	
 	var f_last_update=new Date(parseInt(getLocalStorage("fecha")));
-	var mensaje='Hay actualizaciones desde el día: '+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
+	var mensaje='Hay novedades desde la última entrada a la aplicación el día '+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
 	
 	var _30_seconds_from_now = new Date(now + 30*1000);
 	
@@ -135,7 +135,7 @@ function show_notification(msg)
 		mensaje+='\r\n'+msg[1]["ov_documents"]+' documentos ';	
 	}
 	
-	if(msg[0]["ov_news"]>0 && msg[1]["ov_documents"]>0)
+	if(msg[0]["ov_news"]>0 || msg[1]["ov_documents"]>0)
 	{		
 		window.plugin.notification.local.add({
 			id:      1,
