@@ -109,7 +109,7 @@ function check_internet(){
 			setInterval(function(){
 				var values2="date="+getLocalStorage("fecha");
 				ajax_operation_cross(values2,"ov_get_notifications");
-			},120*1000);  //cada 2 minutos
+			},60*1000);  //cada 1 minuto ///  24*60*60*1000
 		}		
 	}
 
@@ -133,7 +133,9 @@ function show_notification(msg)
 	var mensaje='Novedades: '+f_last_update.toString();
 	//+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
 	
-	var _30_seconds_from_now = new Date(now + 30*1000);
+	now=new Date().getTime();
+	var _10_seconds_from_now = new Date(now + 10*1000);
+	setLocalStorage("fecha", now);
 	
 	if(msg[0]["ov_news"]>0)
 	{
@@ -145,17 +147,15 @@ function show_notification(msg)
 	}
 	
 	if(msg[0]["ov_news"]>0 || msg[1]["ov_documents"]>0)
-	{		
+	{			
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
-			date:    _30_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			date:    _10_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
 			title:   'CD Colegios Diocesanos',
 			message: mensaje,
 			autoCancel: true
 		});
 	}
-
-	setLocalStorage("fecha", now);
 	
 }
 
