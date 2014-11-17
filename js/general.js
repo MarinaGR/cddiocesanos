@@ -150,12 +150,23 @@ function show_notification(msg)
 	{			
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
-			date:    _10_seconds_from_now, //Empieza 30 segundos después de iniciar la aplicación
+			date:    _10_seconds_from_now, 
 			title:   'CD Colegios Diocesanos',
 			message: mensaje,
 			autoCancel: true
 		});
 	}
+	else
+	{			
+		window.plugin.notification.local.add({
+			id:      id_notificacion,
+			date:    _10_seconds_from_now,
+			title:   'CD Colegios Diocesanos',
+			message: "No hay novedades "+f_last_update,
+			autoCancel: true
+		});
+	}
+	
 	
 }
 
