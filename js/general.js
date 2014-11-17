@@ -130,7 +130,7 @@ function show_notification(msg)
 	});*/
 	
 	var f_last_update=new Date(parseInt(getLocalStorage("fecha")));
-	var mensaje='Novedades: '+f_last_update.toString();
+	var mensaje='';//Novedades: '+f_last_update.toString();
 	//+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
 	
 	now=new Date().getTime();
@@ -139,11 +139,11 @@ function show_notification(msg)
 	
 	if(msg[0]["ov_news"]>0)
 	{
-		mensaje+='\r\n'+msg[0]["ov_news"]+' noticias ';
+		mensaje+=''+msg[0]["ov_news"]+' noticias\r\n';
 	}
 	if(msg[1]["ov_documents"]>0)
 	{	
-		mensaje+='\r\n'+msg[1]["ov_documents"]+' documentos ';	
+		mensaje+=''+msg[1]["ov_documents"]+' documentos\r\n';	
 	}
 	
 	if(msg[0]["ov_news"]>0 || msg[1]["ov_documents"]>0)
@@ -151,7 +151,7 @@ function show_notification(msg)
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
 			date:    _10_seconds_from_now, 
-			title:   'CD Colegios Diocesanos',
+			title:   'Novedades',
 			message: mensaje,
 			autoCancel: true
 		});
