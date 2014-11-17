@@ -233,9 +233,8 @@ function ajax_operation_cross(values,operation)
 			}
 			retorno=data.result;
 			
-			id_notificaciion++;
+			id_notificacion++;
 			show_notification(retorno);
-	
 		}
 		else
 		{
