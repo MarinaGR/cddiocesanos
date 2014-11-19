@@ -7,7 +7,7 @@
     <name>CD Colegios Diocesanos</name>
 
     <description>
-		Aplicación con toda la información sobre el Club Deportivo Colegios Diocesanos, de Ávila.
+		Aplicación con toda la información sobre el Club Deportivo Colegios Diocesanos de Ávila.
     </description>
 
     <author href="http://www.ovnyline.com" email="info@ovnyline.com">
@@ -62,7 +62,6 @@
     <gap:plugin name="org.apache.cordova.vibration" /> -->
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
 
-
     <!-- Define app icon for each platform. -->
     <icon src="res/icon/icon.png" />
     
@@ -103,8 +102,8 @@
     <!--
     <gap:splash src="res/screen/windows-phone/screen-portrait.png" gap:platform="winphone" />
     -->
-    <!-- Define access to external domains. -->
-    
+	
+    <!-- Define access to external domains. -->    
     <access origin="*"/> 
 
 </widget>

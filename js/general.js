@@ -23,8 +23,7 @@ function onBodyLoad()
 	var fecha=getLocalStorage("fecha"); 
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
-		//var nueva_fecha= new Date(now);
-		var nueva_fecha=new Date(2014,0,1).getTime(); //now;
+		var nueva_fecha=now; //new Date(2014,0,1).getTime(); 
 		setLocalStorage("fecha", nueva_fecha);
 	}
 	
@@ -57,7 +56,7 @@ function onOnline()
 {
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl);
-	},500);
+	},250);
 	
 	/*var networkState = navigator.connection.type;
 
@@ -78,7 +77,7 @@ function onOffline()
 {
 	setTimeout(function(){
 		$("#contenido").attr("src","offline.html");
-	},500);
+	},250);
 
 }
 
@@ -90,7 +89,7 @@ function check_internet(){
 	{		
 		setTimeout(function(){
 			$("#contenido").attr("src","offline.html");				
-		},500);
+		},250);
 	}
 	else 
 	{
@@ -103,13 +102,13 @@ function check_internet(){
 	
 			setTimeout(function(){
 				$("#contenido").attr("src",extern_siteurl);	
-			},500);
+			},250);
 			
-			/*NOTIFICACIONES CADA 24 horas*/	
+			/*CADA 12 HORAS*/	
 			setInterval(function(){
 				var values2="date="+getLocalStorage("fecha");
 				ajax_operation_cross(values2,"ov_get_notifications");
-			},60*1000);  //cada 1 minuto ///  24*60*60*1000
+			},12*60*60*1000);  //cada minuto 60seg*1000 
 		}		
 	}
 
@@ -130,8 +129,7 @@ function show_notification(msg)
 	});*/
 	
 	var f_last_update=new Date(parseInt(getLocalStorage("fecha")));
-	var mensaje='';//Novedades: '+f_last_update.toString();
-	//+f_last_update.getDate()+'/'+(f_last_update.getMonth()+1)+'/'+f_last_update.getFullYear(); 
+	var mensaje='';//+f_last_update.toString();
 	
 	now=new Date().getTime();
 	var _10_seconds_from_now = new Date(now + 10*1000);
@@ -151,12 +149,12 @@ function show_notification(msg)
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
 			date:    _10_seconds_from_now, 
-			title:   'Novedades',
+			title:   'Novedades CD Colegios Diocesanos',
 			message: mensaje,
 			autoCancel: true
 		});
 	}
-	else
+	/*else
 	{			
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
@@ -165,7 +163,7 @@ function show_notification(msg)
 			message: "No hay novedades "+f_last_update,
 			autoCancel: true
 		});
-	}
+	}*/
 	
 	
 }
