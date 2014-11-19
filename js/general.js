@@ -108,7 +108,7 @@ function check_internet(){
 			setInterval(function(){
 				var values2="date="+getLocalStorage("fecha");
 				ajax_operation_cross(values2,"ov_get_notifications");
-			},12*60*60*1000);  //cada minuto 60seg*1000 
+			},10*60*1000);  //cada minuto: 1min*60seg*1000; cada 24 horas: 24*60*60*1000
 		}		
 	}
 
