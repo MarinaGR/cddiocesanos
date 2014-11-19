@@ -33,7 +33,9 @@ function onBodyLoad()
 function onDeviceReady()
 {
 	document.addEventListener("offline", onOffline, false);
-	document.addEventListener("online", onOnline, false); 	
+	document.addEventListener("online", onOnline, false);
+
+	cordova.plugins.backgroundMode.enable(); 	
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
