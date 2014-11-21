@@ -106,11 +106,11 @@ function check_internet(){
 				$("#contenido").attr("src",extern_siteurl);	
 			},250);
 			
-			/*CADA 12 HORAS*/	
+			/*CADA 6 HORAS*/	
 			setInterval(function(){
 				var values2="date="+getLocalStorage("fecha");
 				ajax_operation_cross(values2,"ov_get_notifications");
-			},10*60*1000);  //cada minuto: 1min*60seg*1000; cada 24 horas: 24*60*60*1000
+			},6*60*60*1000);  //cada minuto: 1min*60seg*1000; cada 24 horas: 24*60*60*1000
 		}		
 	}
 
@@ -139,11 +139,11 @@ function show_notification(msg)
 	
 	if(msg[0]["ov_news"]>0)
 	{
-		mensaje+=''+msg[0]["ov_news"]+' noticias\r\n';
+		mensaje+=''+msg[0]["ov_news"]+' NOTICIAS\r\n';
 	}
 	if(msg[1]["ov_documents"]>0)
 	{	
-		mensaje+=''+msg[1]["ov_documents"]+' documentos\r\n';	
+		mensaje+=''+msg[1]["ov_documents"]+' DOCUMENTOS\r\n';	
 	}
 	
 	if(msg[0]["ov_news"]>0 || msg[1]["ov_documents"]>0)
