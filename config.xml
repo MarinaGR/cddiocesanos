@@ -42,6 +42,8 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
+	<gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
+	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
 	<!--<gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
 	<gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
 	<gap:plugin name="org.apache.cordova.console" version="0.2.11" />
@@ -60,8 +62,7 @@
 	<gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />
 	<!--<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
 	<gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />-->
-	<gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
-	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.7.5" />
+	
 
     <!-- Define app icon for each platform. -->
     <icon src="res/icon/icon.png" />
