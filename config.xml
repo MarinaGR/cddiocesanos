@@ -2,7 +2,8 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "com.ovnyline.cddiocesanos"
-		version     = "1.0.1" > <!--En android es la versión 1.0.0, en ios hubo que actualizar 1.0.1 para soporte 64-bit -->
+		version     = "1.0.1" > 
+		<!-- En android version 1.0.0, en ios actualizamos para soporte 64-bit version 1.0.1 -->
 
     <name>CD Colegios Diocesanos</name>
 
