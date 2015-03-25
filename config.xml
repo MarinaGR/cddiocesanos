@@ -2,8 +2,11 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "com.ovnyline.cddiocesanos"
-		version     = "1.0.2" > 
-		<!-- En android version 1.0.0, en ios actualizamos para soporte 64-bit version 1.0.1 y quitamos backgroundmode en 1.0.2 -->
+		version     = "1.0.3" > 
+		<!-- En android version 1.0.0
+			 En ios version 1.0.1: actualización para soporte 64-bit
+					version 1.0.2: retirada de backgroundmode 
+					version 1.0.3: nuevo parametro en la url "app_ios=mobile" para controlar que no muestre iframe dentro de iframe en sección resultados -->
 
     <name>CD Colegios Diocesanos</name>
 
@@ -23,7 +26,7 @@
     <preference name="permissions" value="none"/>-->
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="3.6.3" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="3.7.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->

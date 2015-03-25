@@ -3,7 +3,7 @@
 var now = new Date().getTime();
 var id_notificacion=0;
 
-var extern_siteurl="http://cdcolegiosdiocesanos.com/kantanna/pages/index.php?app=mobile"; 
+var extern_siteurl="http://cdcolegiosdiocesanos.com/kantanna/pages/index.php?app=mobile&app_ios=mobile"; 
 var extern_siteurl_op="http://cdcolegiosdiocesanos.com/kantanna/functions/php_ajax_operations.php";
 
 //Get the screen and viewport size
